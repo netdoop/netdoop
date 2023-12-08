@@ -1,15 +1,18 @@
 package store
 
 import (
+	"context"
 	"fmt"
 	"sync"
 	"time"
 
 	"github.com/netdoop/netdoop/utils"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 
-	"github.com/heypkg/storage"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"moul.io/zapgorm2"
@@ -51,7 +54,7 @@ func initDB() {
 			Context:                   nil,
 		}
 	}
-	db, err := storage.OpenDatabase(dsn, log)
+	db, err := OpenDatabase(dsn, log)
 	if err != nil {
 		utils.GetLogger().Fatal("db connection error", zap.String("dsn", dsn))
 	}
@@ -63,12 +66,22 @@ func GetDB() *gorm.DB {
 	return defaultDB
 }
 
+func OpenDatabase(dsn string, logger logger.Interface, opts ...gorm.Option) (*gorm.DB, error) {
+	db, err := gorm.Open(postgres.Open(dsn), opts...)
+	if err != nil {
+		return nil, errors.Wrap(err, "open database")
+	}
+
+	db.Logger = logger
+	return db, nil
+}
+
 func initMongoDB() {
 	env := utils.GetEnv()
 	uri := env.GetString("mongodb_uri")
 	database := env.GetString("mongodb_database")
 
-	db, err := storage.OpenMongoDB(uri, database)
+	db, err := OpenMongoDB(uri, database)
 	if err != nil {
 		utils.GetLogger().Fatal("open mongo db error", zap.Error(err))
 	}
@@ -78,4 +91,18 @@ func initMongoDB() {
 func GetMongoDatabase() *mongo.Database {
 	defaultMongoDBOnce.Do(initMongoDB)
 	return defaultMongoDB
+}
+
+func OpenMongoDB(uri string, database string) (*mongo.Database, error) {
+	clientOptions := options.Client().
+		ApplyURI(uri).
+		SetMaxPoolSize(10).                  // Set the maximum connection pool size
+		SetMinPoolSize(5).                   // Set the minimum connection pool size
+		SetMaxConnIdleTime(30 * time.Second) // Set the maximum idle time for a connection
+
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		return nil, errors.Wrap(err, "connect to mongo")
+	}
+	return client.Database(database), nil
 }

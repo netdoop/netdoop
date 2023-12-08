@@ -5,13 +5,13 @@ go 1.21.4
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible
 	github.com/RussellLuo/timingwheel v0.0.0-20220218152713-54845bda3108
-	github.com/heypkg/iam v0.2.22-dev
-	github.com/heypkg/s3 v0.2.8-dev
-	github.com/heypkg/storage v0.1.4-dev
-	github.com/heypkg/store v0.1.0-dev
+	github.com/gorilla/sessions v1.2.2
+	github.com/heypkg/iam v0.2.22
+	github.com/heypkg/s3 v0.2.8
+	github.com/heypkg/store v0.1.0
 	github.com/labstack/echo/v4 v4.11.3
 	github.com/labstack/gommon v0.4.1
-	github.com/netdoop/cwmp v0.1.5-dev
+	github.com/netdoop/cwmp v0.1.5
 	github.com/pkg/errors v0.9.1
 	github.com/rbcervilla/redisstore/v9 v9.0.0
 	github.com/redis/go-redis/v9 v9.3.0
@@ -25,6 +25,7 @@ require (
 	go.uber.org/zap v1.26.0
 	golang.org/x/time v0.5.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
+	gorm.io/driver/postgres v1.5.4
 	gorm.io/gorm v1.25.5
 	moul.io/zapgorm2 v1.3.0
 )
@@ -50,7 +51,6 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/context v1.1.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
-	github.com/gorilla/sessions v1.2.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -97,5 +97,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.2 // indirect
-	gorm.io/driver/postgres v1.5.4 // indirect
 )
