@@ -76,37 +76,6 @@ func postAlarm(db *gorm.DB, device *Device, alarmIdentifier string) {
 	}
 }
 
-func DebugPostAlarm(db *gorm.DB, cleared bool, alarmIdentifier string) {
-	device := GetDevice("", "20AC9C", "CTBU022D200052-NR")
-	if device != nil {
-		objs := []*DeviceAlarm{}
-		db.Where("device_id = ?", device.ID).Find(&objs)
-		if len(objs) > 0 {
-			obj := objs[0]
-			alarm := getAlarm(db, device, obj.AlarmIdentifier)
-			if alarm != nil {
-				now := jsontype.JSONTime(time.Now())
-				if cleared {
-					alarm.AlarmIdentifier = alarmIdentifier
-					alarm.AlarmCleared = true
-					alarm.AlarmChangedTime = now
-					alarm.AlarmClearedTime = now
-				} else {
-					alarm.AlarmIdentifier = alarmIdentifier
-					alarm.AlarmCleared = false
-					alarm.AlarmRaisedTime = now
-					alarm.AlarmChangedTime = now
-				}
-				tsrv := GetTaskServer()
-				tsrv.PushDeviceAlarm(alarm)
-			}
-		}
-		// for _, obj := range objs {
-		// 	postAlarm(db, device, obj.AlarmIdentifier)
-		// }
-	}
-}
-
 func ClearCurrentAlarm(db *gorm.DB, device *Device, alarmIdentifier string) error {
 	alarm := getAlarm(db, device, alarmIdentifier)
 	if alarm != nil && !alarm.AlarmCleared {

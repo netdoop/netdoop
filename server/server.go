@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"sort"
 	"strings"
@@ -309,12 +308,6 @@ func (s *Server) Run() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		// s.stund.Run()
-	}()
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
 		addr := s.env.GetString("server_address")
 		if err := s.e.Start(addr); err != nil {
 			if strings.Contains(err.Error(), "Server closed") {
@@ -361,26 +354,6 @@ func (s *Server) Run() {
 					s.logger.Error("fetch device status", zap.Error(err))
 				}
 			}
-		}
-	}()
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		cleared := true
-		alarmIdentifier := ""
-
-		db := store.GetDB()
-		for {
-			if s.shutdown {
-				break
-			}
-			time.Sleep(time.Minute * 2)
-			cleared = !cleared
-			if !cleared || alarmIdentifier == "" {
-				alarmIdentifier = fmt.Sprintf("%v", time.Now().Unix())
-			}
-			omc.DebugPostAlarm(db, cleared, alarmIdentifier)
 		}
 	}()
 
