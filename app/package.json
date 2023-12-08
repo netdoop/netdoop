@@ -1,0 +1,38 @@
+{
+  "name": "@agan83/netdoop",
+  "private": true,
+  "author": "agan83 <agan83@163.com>",
+  "scripts": {
+    "dev": "max dev",
+    "build": "max build",
+    "openapi": "max openapi",
+    "format": "prettier --cache --write .",
+    "prepare": "cd .. && husky install app/.husky",
+    "postinstall": "max setup",
+    "setup": "max setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@ant-design/charts": "^1.4.2",
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.43",
+    "@umijs/max": "^4.0.88",
+    "antd": "^5.11.4",
+    "dayjs": "^1.11.10",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "swagger-ui-dist": "^4.19.1",
+    "umi-presets-pro": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.3.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-packagejson": "^2.4.6",
+    "typescript": "^5.3.2"
+  }
+}

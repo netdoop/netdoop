@@ -1,0 +1,5522 @@
+basePath: /api/v1
+definitions:
+  echo.HTTPError:
+    properties:
+      message: {}
+    type: object
+  echo.Map:
+    additionalProperties: true
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  iam.ApiRule:
+    properties:
+      Method:
+        type: string
+      Path:
+        type: string
+    type: object
+  iam.AuditLog:
+    properties:
+      ApiName:
+        type: string
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Method:
+        type: string
+      Path:
+        type: string
+      Schema:
+        type: string
+      Status:
+        type: integer
+      Time:
+        type: string
+      Updated:
+        type: string
+      User:
+        $ref: '#/definitions/iam.User'
+      UserAlias:
+        type: string
+      UserId:
+        type: integer
+      UserName:
+        type: string
+    type: object
+  iam.Role:
+    properties:
+      Alias:
+        type: string
+      Created:
+        type: integer
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Enable:
+        type: boolean
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      Rules:
+        items:
+          type: string
+        type: array
+      Schema:
+        type: string
+      Updated:
+        type: integer
+    type: object
+  iam.User:
+    properties:
+      Alias:
+        type: string
+      Created:
+        type: integer
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Enable:
+        type: boolean
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      PasswordExpireAt:
+        type: integer
+      Roles:
+        items:
+          type: string
+        type: array
+      Rules:
+        items:
+          type: string
+        type: array
+      Schema:
+        type: string
+      Updated:
+        type: integer
+    type: object
+  iam.addUserRolesBody:
+    properties:
+      roleNames:
+        items:
+          type: string
+        type: array
+    type: object
+  iam.authBody:
+    properties:
+      password:
+        example: ""
+        type: string
+      username:
+        example: ""
+        type: string
+    type: object
+  iam.authResponseBody:
+    properties:
+      token:
+        type: string
+    type: object
+  iam.changePasswordBody:
+    properties:
+      NewPassword:
+        type: string
+      Password:
+        type: string
+    type: object
+  iam.createRoleBody:
+    properties:
+      alias:
+        type: string
+      name:
+        type: string
+    type: object
+  iam.createUserBody:
+    properties:
+      alias:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  iam.listAuditLogsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/iam.AuditLog'
+        type: array
+      Total:
+        type: integer
+    type: object
+  iam.listRolesData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/iam.Role'
+        type: array
+      Total:
+        type: integer
+    type: object
+  iam.listRulesBody:
+    properties:
+      Data:
+        items:
+          type: string
+        type: array
+      Total:
+        type: integer
+    type: object
+  iam.listUsersData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/iam.User'
+        type: array
+      Total:
+        type: integer
+    type: object
+  iam.setRoleApiRulesBody:
+    properties:
+      RoleIds:
+        items:
+          type: string
+        type: array
+    type: object
+  iam.setUserRoles:
+    properties:
+      roleNames:
+        items:
+          type: string
+        type: array
+    type: object
+  iam.updateRoleBody:
+    properties:
+      alias:
+        type: string
+    type: object
+  iam.updateUserBody:
+    properties:
+      alias:
+        type: string
+    type: object
+  jsontype.Tags:
+    additionalProperties: {}
+    type: object
+  omc.DataModel:
+    properties:
+      Created:
+        type: string
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      ParameterPath:
+        type: string
+      Parameters:
+        items:
+          $ref: '#/definitions/omc.DataModelParameter'
+        type: array
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      Templates:
+        items:
+          $ref: '#/definitions/omc.DataModelTemplate'
+        type: array
+      Updated:
+        type: string
+    type: object
+  omc.DataModelParameter:
+    properties:
+      Created:
+        type: string
+      DataModelId:
+        type: integer
+      Default:
+        type: boolean
+      DefaultValue:
+        type: string
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Description:
+        type: string
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      Type:
+        type: string
+      Updated:
+        type: string
+      Writable:
+        type: boolean
+    type: object
+  omc.DataModelTemplate:
+    properties:
+      Created:
+        type: string
+      DataModelId:
+        type: integer
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      ParameterNames:
+        $ref: '#/definitions/jsontype.Tags'
+      Updated:
+        type: string
+    type: object
+  omc.Device:
+    properties:
+      ActiveStatus:
+        type: string
+      Created:
+        type: string
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Enable:
+        type: boolean
+      Group:
+        $ref: '#/definitions/omc.Group'
+      GroupId:
+        type: integer
+      Id:
+        type: integer
+      LastInformTime:
+        type: string
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Methods:
+        items:
+          type: string
+        type: array
+      Name:
+        type: string
+      Online:
+        type: boolean
+      Oui:
+        type: string
+      ParameterNotifications:
+        $ref: '#/definitions/omc.ParameterNotifications'
+      ParameterValues:
+        $ref: '#/definitions/omc.ParameterValues'
+      ParameterWritables:
+        $ref: '#/definitions/omc.ParameterWritables'
+      Product:
+        $ref: '#/definitions/omc.Product'
+      ProductClass:
+        type: string
+      ProductId:
+        type: integer
+      ProductType:
+        type: string
+      Properties:
+        $ref: '#/definitions/jsontype.Tags'
+      Schema:
+        type: string
+      SerialNumber:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.DeviceAlarm:
+    properties:
+      AdditionalInformation:
+        type: string
+      AdditionalText:
+        type: string
+      AlarmChangedTime:
+        type: string
+      AlarmCleared:
+        type: boolean
+      AlarmClearedTime:
+        type: string
+      AlarmConfirmed:
+        type: boolean
+      AlarmConfirmedTime:
+        type: string
+      AlarmIdentifier:
+        type: string
+      AlarmRaisedTime:
+        type: string
+      Device:
+        $ref: '#/definitions/omc.Device'
+      DeviceId:
+        type: integer
+      EventType:
+        type: string
+      ManagedObjectInstance:
+        type: string
+      Oui:
+        type: string
+      PerceivedSeverity:
+        type: string
+      ProbableCause:
+        type: string
+      ProductClass:
+        type: string
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      SerialNumber:
+        type: string
+      SpecificProblem:
+        type: string
+      Time:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.DeviceEvent:
+    properties:
+      CurrentTime:
+        type: string
+      Device:
+        $ref: '#/definitions/omc.Device'
+      DeviceId:
+        type: integer
+      EventType:
+        type: string
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Oui:
+        type: string
+      ProductClass:
+        type: string
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      SerialNumber:
+        type: string
+      Time:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.DeviceMethodCall:
+    properties:
+      CommandKey:
+        type: string
+      Device:
+        $ref: '#/definitions/omc.Device'
+      DeviceId:
+        type: integer
+      FaultCode:
+        type: integer
+      FaultString:
+        type: string
+      MethodName:
+        type: string
+      Oui:
+        type: string
+      ProductClass:
+        type: string
+      ProductType:
+        type: string
+      RequestValues:
+        $ref: '#/definitions/jsontype.Tags'
+      ResponseValues:
+        $ref: '#/definitions/jsontype.Tags'
+      Schema:
+        type: string
+      SerialNumber:
+        type: string
+      State:
+        $ref: '#/definitions/omc.DeviceMethodCallState'
+      Time:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.DeviceMethodCallState:
+    enum:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 100
+    type: integer
+    x-enum-varnames:
+    - DeviceMethodCallStateInit
+    - DeviceMethodCallStateRequestSend
+    - DeviceMethodCallStateResponseRecv
+    - DeviceMethodCallStateResponseTimeout
+    - DeviceMethodCallStateUnknow
+  omc.DeviceTransferLog:
+    properties:
+      CompleteTime:
+        type: string
+      Device:
+        $ref: '#/definitions/omc.Device'
+      DeviceId:
+        type: integer
+      FaultCode:
+        type: integer
+      FaultString:
+        type: string
+      FileName:
+        type: string
+      FileType:
+        type: string
+      Firmware:
+        $ref: '#/definitions/omc.Firmware'
+      FirmwareId:
+        type: integer
+      ObjectBucket:
+        type: string
+      ObjectKey:
+        type: string
+      Oui:
+        type: string
+      ProductClass:
+        type: string
+      ProductType:
+        type: string
+      S3Object:
+        $ref: '#/definitions/s3.S3Object'
+      S3ObjectId:
+        type: integer
+      Schema:
+        type: string
+      SerialNumber:
+        type: string
+      StartTime:
+        type: string
+      Time:
+        type: string
+      TransferType:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.Firmware:
+    properties:
+      Created:
+        type: string
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Id:
+        type: integer
+      Name:
+        type: string
+      ProductType:
+        type: string
+      S3Object:
+        $ref: '#/definitions/s3.S3Object'
+      S3ObjectId:
+        type: integer
+      Schema:
+        type: string
+      Updated:
+        type: string
+      UploadTime:
+        type: string
+      Uploader:
+        type: string
+      Version:
+        type: string
+      products:
+        items:
+          $ref: '#/definitions/omc.Product'
+        type: array
+    type: object
+  omc.Group:
+    properties:
+      Children:
+        items:
+          $ref: '#/definitions/omc.Group'
+        type: array
+      Created:
+        type: string
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      Parent:
+        $ref: '#/definitions/omc.Group'
+      ParentId:
+        type: integer
+      Schema:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.KPIMeas:
+    properties:
+      Created:
+        type: string
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Enable:
+        type: boolean
+      Formula:
+        type: string
+      Id:
+        type: integer
+      MeasTypeID:
+        type: string
+      MeasTypeSet:
+        type: string
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      StatsType:
+        type: string
+      Unit:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.KPITemplate:
+    properties:
+      Created:
+        type: string
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Id:
+        type: integer
+      MeasTypeIds:
+        items:
+          type: string
+        type: array
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      Name:
+        type: string
+      PeriodicInterval:
+        type: integer
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      SelectIds:
+        items:
+          type: integer
+        type: array
+      SelectType:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.ParameterNotifications:
+    additionalProperties:
+      type: integer
+    type: object
+  omc.ParameterValues:
+    additionalProperties:
+      type: string
+    type: object
+  omc.ParameterWritables:
+    additionalProperties:
+      type: boolean
+    type: object
+  omc.Product:
+    properties:
+      Created:
+        type: string
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      Enable:
+        type: boolean
+      Firmwares:
+        items:
+          $ref: '#/definitions/omc.Firmware'
+        type: array
+      Id:
+        type: integer
+      Manufacturer:
+        type: string
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      ModelName:
+        type: string
+      Oui:
+        type: string
+      ParameterPath:
+        type: string
+      PerformanceValueDefines:
+        $ref: '#/definitions/jsontype.Tags'
+      ProductClass:
+        type: string
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      SupportedAlarms:
+        items:
+          $ref: '#/definitions/omc.ProductSupportedAlarm'
+        type: array
+      Updated:
+        type: string
+    type: object
+  omc.ProductSupportedAlarm:
+    properties:
+      AlarmIdentifier:
+        type: string
+      Created:
+        type: string
+      EventType:
+        type: string
+      Id:
+        type: integer
+      Oui:
+        type: string
+      PerceivedSeverity:
+        type: string
+      ProbableCause:
+        type: string
+      Product:
+        $ref: '#/definitions/omc.Product'
+      ProductClass:
+        type: string
+      ProductId:
+        type: integer
+      ProductType:
+        type: string
+      Schema:
+        type: string
+      SerialNumber:
+        type: string
+      SpecificProblem:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.Task:
+    properties:
+      Created:
+        type: string
+      Creater:
+        type: string
+      Default:
+        type: boolean
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      DeviceIds:
+        $ref: '#/definitions/jsontype.Tags'
+      Enable:
+        type: boolean
+      ExecEndTime:
+        type: string
+      ExecInterval:
+        type: integer
+      ExecLastTime:
+        type: string
+      ExecMode:
+        $ref: '#/definitions/omc.TaskExecMode'
+      ExecNextTime:
+        type: string
+      ExecProcess:
+        type: integer
+      ExecRate:
+        type: integer
+      ExecStartTime:
+        type: string
+      ExecTimes:
+        type: integer
+      Id:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      RetryInterval:
+        type: integer
+      RetryTimes:
+        type: integer
+      Schema:
+        type: string
+      TaskName:
+        type: string
+      TaskStatus:
+        $ref: '#/definitions/omc.TaskStatus'
+      TaskType:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.TaskDeviceLog:
+    properties:
+      Code:
+        type: integer
+      Device:
+        $ref: '#/definitions/omc.Device'
+      DeviceId:
+        type: integer
+      DeviceIds:
+        $ref: '#/definitions/jsontype.Tags'
+      EndTime:
+        type: string
+      ExecMode:
+        type: integer
+      Info:
+        type: string
+      Schema:
+        type: string
+      StartTime:
+        type: string
+      Task:
+        $ref: '#/definitions/omc.Task'
+      TaskId:
+        type: integer
+      TaskName:
+        type: string
+      TaskType:
+        type: string
+      Time:
+        type: string
+      Updated:
+        type: string
+    type: object
+  omc.TaskExecMode:
+    enum:
+    - 0
+    - 1
+    type: integer
+    x-enum-varnames:
+    - TaskExecModeImmediately
+    - TaskExecModeSchedule
+  omc.TaskStatus:
+    enum:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    type: integer
+    x-enum-varnames:
+    - TaskStatusInit
+    - TaskStatusWaiting
+    - TaskStatusRunning
+    - TaskStatusFinish
+    - TaskStatusCancel
+  omc.addDeviceObejectBody:
+    properties:
+      ObjectName:
+        type: string
+      ParameterKey:
+        type: string
+    type: object
+  omc.createDataModelBody:
+    properties:
+      metaData:
+        $ref: '#/definitions/jsontype.Tags'
+      name:
+        type: string
+      parameterPath:
+        type: string
+      productType:
+        type: string
+    type: object
+  omc.createDataModelParameterBody:
+    properties:
+      defaultValue:
+        type: string
+      description:
+        type: string
+      metaData:
+        $ref: '#/definitions/jsontype.Tags'
+      name:
+        type: string
+      type:
+        type: string
+      writable:
+        type: boolean
+    type: object
+  omc.createDataModelTemplateBody:
+    properties:
+      metaData:
+        $ref: '#/definitions/jsontype.Tags'
+      name:
+        type: string
+      parameterNames:
+        $ref: '#/definitions/jsontype.Tags'
+    type: object
+  omc.createDeviceBody:
+    properties:
+      Name:
+        type: string
+      Oui:
+        type: string
+      ProductClass:
+        type: string
+      SerailNumber:
+        type: string
+    type: object
+  omc.createGroupBody:
+    properties:
+      name:
+        type: string
+      parentID:
+        type: integer
+    type: object
+  omc.createKPIMeasureBody:
+    properties:
+      formula:
+        type: string
+      measTypeID:
+        type: string
+      measTypeSet:
+        type: string
+      name:
+        type: string
+      productType:
+        type: string
+      statsType:
+        type: string
+      unit:
+        type: string
+    type: object
+  omc.createKPITemplateBody:
+    properties:
+      measTypeIds:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      periodicInterval:
+        type: integer
+      selectIds:
+        items:
+          type: integer
+        type: array
+      selectType:
+        type: string
+    type: object
+  omc.createProductBody:
+    properties:
+      manufacturer:
+        type: string
+      modelName:
+        type: string
+      oui:
+        type: string
+      productClass:
+        type: string
+    type: object
+  omc.createTaskBody:
+    properties:
+      Creater:
+        type: string
+      DeviceIds:
+        items:
+          type: integer
+        type: array
+      ExecEndTime:
+        type: string
+      ExecInterval:
+        type: integer
+      ExecMode:
+        $ref: '#/definitions/omc.TaskExecMode'
+      ExecProcess:
+        type: integer
+      ExecStartTime:
+        type: string
+      ExecTimes:
+        type: integer
+      MetaData:
+        $ref: '#/definitions/jsontype.Tags'
+      ParameterNames:
+        items:
+          type: string
+        type: array
+      TaskName:
+        type: string
+      TaskStatus:
+        $ref: '#/definitions/omc.TaskStatus'
+      TaskType:
+        type: string
+    type: object
+  omc.deleteDeviceObejectBody:
+    properties:
+      ObjectName:
+        type: string
+      ParameterKey:
+        type: string
+    type: object
+  omc.getDeviceParameterNamesBody:
+    properties:
+      NextLevel:
+        type: boolean
+      ParameterPath:
+        type: string
+    type: object
+  omc.getDeviceParameterValuesBody:
+    properties:
+      Names:
+        items:
+          type: string
+        type: array
+    type: object
+  omc.listDataModelData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.DataModel'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDeletedDevicesData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.Device'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDeletedProductsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.Product'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDeviceAlarmsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.DeviceAlarm'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDeviceEventsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.DeviceEvent'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDeviceMethodCallsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.DeviceMethodCall'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDeviceTransferLogsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.DeviceTransferLog'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listDevicesData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.Device'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listFirmwaresData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.Firmware'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listKPIMeasuresData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.KPIMeas'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listKPITemplateRecordsData:
+    properties:
+      Data:
+        items:
+          additionalProperties: {}
+          type: object
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listKPITemplatesData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.KPITemplate'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listProductsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.Product'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listTaskDeviceLogsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.TaskDeviceLog'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.listTasksData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/omc.Task'
+        type: array
+      Total:
+        type: integer
+    type: object
+  omc.setDeviceParameterValuesBody:
+    properties:
+      Values:
+        additionalProperties: {}
+        type: object
+    type: object
+  omc.setFirmwareProductsBody:
+    properties:
+      ModelNames:
+        items:
+          type: string
+        type: array
+    type: object
+  omc.setGroupForDeviceBody:
+    properties:
+      GroupId:
+        type: integer
+    type: object
+  omc.setGroupParentBody:
+    properties:
+      parentID:
+        type: integer
+    type: object
+  omc.updateDeviceInfoBody:
+    properties:
+      Name:
+        type: string
+    type: object
+  omc.updateGroupInfoBody:
+    properties:
+      name:
+        type: string
+    type: object
+  omc.updateKPIMeasureInfoBody:
+    properties:
+      name:
+        type: string
+    type: object
+  omc.updateKPITemplateBody:
+    properties:
+      measTypeIds:
+        items:
+          type: string
+        type: array
+      periodicInterval:
+        type: integer
+      selectIds:
+        items:
+          type: integer
+        type: array
+      selectType:
+        type: string
+    type: object
+  omc.updateProductInfoBody:
+    properties:
+      manufacturer:
+        type: string
+    type: object
+  omc.upgradeDeviceBody:
+    properties:
+      DelaySeconds:
+        type: integer
+      FirmwareID:
+        type: integer
+    type: object
+  omc.uploadDeviceFileBody:
+    properties:
+      DelaySeconds:
+        type: integer
+      FileType:
+        description: |-
+          Url          string `json:"Url"`
+          Username     string `json:"Username"`
+          Password     string `json:"Password"`
+        type: string
+    type: object
+  s3.S3Object:
+    properties:
+      Bucket:
+        type: string
+      Created:
+        type: string
+      Deleted:
+        $ref: '#/definitions/gorm.DeletedAt'
+      DownloadUrl:
+        type: string
+      FileName:
+        type: string
+      FileSize:
+        type: integer
+      Id:
+        type: integer
+      Key:
+        type: string
+      MetaData:
+        $ref: '#/definitions/s3.Tags'
+      Schema:
+        type: string
+      SignMethod:
+        type: string
+      Signature:
+        type: string
+      Updated:
+        type: string
+    type: object
+  s3.Tags:
+    additionalProperties: {}
+    type: object
+  s3.listS3ObjectsData:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/s3.S3Object'
+        type: array
+      Total:
+        type: integer
+    type: object
+  server.listRoutesBody:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/iam.ApiRule'
+        type: array
+      Total:
+        type: integer
+    type: object
+  system.systemInfoData:
+    properties:
+      Build:
+        type: string
+      Name:
+        type: string
+      Version:
+        type: string
+    type: object
+  system.systemTimeData:
+    properties:
+      Current:
+        type: integer
+    type: object
+  tsdb.TSPoint:
+    additionalProperties: {}
+    type: object
+  tsdb.TSQuery:
+    properties:
+      Format:
+        type: string
+      GroupBy:
+        items:
+          type: string
+        type: array
+      Id:
+        type: string
+      Interval:
+        type: number
+      Limit:
+        type: integer
+      Offset:
+        type: integer
+      OrderBy:
+        items:
+          type: string
+        type: array
+      Reverse:
+        type: boolean
+      Search:
+        type: string
+      Select:
+        items:
+          $ref: '#/definitions/tsdb.TSQuerySelect'
+        type: array
+      Source:
+        type: string
+    type: object
+  tsdb.TSQueryCommand:
+    properties:
+      From:
+        type: integer
+      Query:
+        $ref: '#/definitions/tsdb.TSQuery'
+      TimeZone:
+        type: string
+      To:
+        type: integer
+    type: object
+  tsdb.TSQuerySelect:
+    properties:
+      Func:
+        type: string
+      Name:
+        type: string
+      Source:
+        type: string
+    type: object
+  tsdb.TSResult:
+    properties:
+      Data:
+        items:
+          $ref: '#/definitions/tsdb.TSSeries'
+        type: array
+      From:
+        type: integer
+      To:
+        type: integer
+    type: object
+  tsdb.TSSeries:
+    properties:
+      GroupBy:
+        additionalProperties:
+          type: string
+        type: object
+      Points:
+        items:
+          $ref: '#/definitions/tsdb.TSPoint'
+        type: array
+    type: object
+host: dev.netdoop.com
+info:
+  contact: {}
+  title: NetDoop API
+  version: "1.0"
+paths:
+  /auth:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Authenticate request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.authBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Returns a login token
+          schema:
+            $ref: '#/definitions/iam.authResponseBody'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      summary: Authenticate a user
+      tags:
+      - Auth
+  /iam/audit-logs:
+    get:
+      operationId: list-audit-logs
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/iam.listAuditLogsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List audit logs
+      tags:
+      - AuditLogs
+  /iam/audit-logs/{ts}:
+    get:
+      operationId: get-audit-log
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.AuditLog'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get audit log
+      tags:
+      - AuditLogs
+  /iam/current:
+    get:
+      consumes:
+      - application/json
+      operationId: get-current
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User information
+          schema:
+            $ref: '#/definitions/iam.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get current user information
+      tags:
+      - Current
+  /iam/current/change-password:
+    put:
+      consumes:
+      - application/json
+      operationId: change-current-password
+      parameters:
+      - description: Change password request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.changePasswordBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Password changed successfully
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Change current user password
+      tags:
+      - Current
+  /iam/roles:
+    get:
+      operationId: list-roles
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.listRolesData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List roles
+      tags:
+      - Roles
+    post:
+      operationId: create-role
+      parameters:
+      - description: Create Role Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.createRoleBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.Role'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create a role
+      tags:
+      - Roles
+  /iam/roles/{id}:
+    delete:
+      operationId: delete-role
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete role
+      tags:
+      - Roles
+    get:
+      operationId: get-role
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.Role'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get role
+      tags:
+      - Roles
+    put:
+      operationId: update-role
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Role Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.updateRoleBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.Role'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update role
+      tags:
+      - Roles
+  /iam/roles/{id}/disable:
+    put:
+      operationId: set-role-disable
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.Role'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set role disable
+      tags:
+      - Roles
+  /iam/roles/{id}/enable:
+    put:
+      operationId: set-role-enable
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.Role'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set role enable
+      tags:
+      - Roles
+  /iam/roles/{id}/rules:
+    put:
+      operationId: set-role-rules
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: rules to set
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.setRoleApiRulesBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set rules for role
+      tags:
+      - Roles
+  /iam/rules:
+    get:
+      operationId: list-rules
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.listRulesBody'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List rules
+      tags:
+      - Rules
+  /iam/users:
+    get:
+      operationId: list-users
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.listUsersData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List users
+      tags:
+      - Users
+    post:
+      operationId: create-user
+      parameters:
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.createUserBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create user
+      tags:
+      - Users
+  /iam/users/{id}:
+    delete:
+      operationId: delete-user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete user
+      tags:
+      - Users
+    get:
+      operationId: get-user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get user
+      tags:
+      - Users
+    put:
+      operationId: update-user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.updateUserBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update user
+      tags:
+      - Users
+  /iam/users/{id}/change-password:
+    put:
+      operationId: change-user-password
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Change password request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.changePasswordBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "400":
+          description: Invalid input parameter
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Change user password
+      tags:
+      - Users
+  /iam/users/{id}/disable:
+    put:
+      operationId: set-user-disable
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set user disable
+      tags:
+      - Users
+  /iam/users/{id}/enable:
+    put:
+      operationId: set-user-enable
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set user enable
+      tags:
+      - Users
+  /iam/users/{id}/reset-password:
+    put:
+      operationId: reset-user-password
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.Map'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: User not found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Reset user password
+      tags:
+      - Users
+  /iam/users/{id}/roles:
+    get:
+      operationId: get-user-roles
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get roles for user
+      tags:
+      - Users
+    post:
+      operationId: add-user-roles
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Roles to add
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.addUserRolesBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Add roles for user
+      tags:
+      - Users
+    put:
+      operationId: set-user-roles
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Roles to set
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/iam.setUserRoles'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/iam.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set roles for user
+      tags:
+      - Users
+  /omc/data:
+    post:
+      operationId: query-data
+      parameters:
+      - description: Query Command
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/tsdb.TSQueryCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tsdb.TSResult'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Query data series
+      tags:
+      - OMC Data
+  /omc/datamodels:
+    get:
+      operationId: list-datamodels
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listDataModelData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List data models
+      tags:
+      - OMC DataModel
+    post:
+      operationId: create-datamodel
+      parameters:
+      - description: DataModel
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createDataModelBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DataModel'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create data model
+      tags:
+      - OMC DataModel
+  /omc/datamodels/{id}:
+    delete:
+      operationId: delete-datamodel
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete data model
+      tags:
+      - OMC DataModel
+    get:
+      operationId: get-datamodel
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DataModel'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get data model
+      tags:
+      - OMC DataModel
+  /omc/datamodels/{id}/parameter/{parameter_id}:
+    delete:
+      operationId: delete-datamodel-parameter
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Parameter ID
+        in: path
+        name: parameter_id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete data model parameter
+      tags:
+      - OMC DataModel Parameter
+  /omc/datamodels/{id}/parameters:
+    get:
+      consumes:
+      - application/json
+      operationId: list-datamodel-parameters
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.ParameterValues'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List the parameters of a datamodel
+      tags:
+      - OMC DataModel
+    post:
+      operationId: create-datamodel-parameter
+      parameters:
+      - description: DataModelParameter
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createDataModelParameterBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DataModelParameter'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create data model parameter
+      tags:
+      - OMC DataModel Parameter
+  /omc/datamodels/{id}/parameters/{parameter_id}:
+    get:
+      operationId: get-datamodel-parameter
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Parameter ID
+        in: path
+        name: parameter_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DataModelParameter'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get data model parameter
+      tags:
+      - OMC DataModel Parameter
+  /omc/datamodels/{id}/template/{template_id}:
+    delete:
+      operationId: delete-datamodel-template
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: TemplateID
+        in: path
+        name: template_id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete data model template
+      tags:
+      - OMC DataModel Template
+  /omc/datamodels/{id}/templates:
+    get:
+      consumes:
+      - application/json
+      operationId: list-datamodel-templates
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.ParameterValues'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List the templates of a datamodel
+      tags:
+      - OMC DataModel
+    post:
+      operationId: create-datamodel-template
+      parameters:
+      - description: DataModelTemplate
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createDataModelTemplateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DataModelTemplate'
+        "400":
+          description: 'Bad Request: invalid input template'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create data model template
+      tags:
+      - OMC DataModel Template
+  /omc/datamodels/{id}/templates/{template_id}:
+    get:
+      operationId: get-datamodel-template
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: TemplateID
+        in: path
+        name: template_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DataModelTemplate'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get data model template
+      tags:
+      - OMC DataModel Template
+  /omc/deleted-devices:
+    get:
+      consumes:
+      - application/json
+      operationId: list-deleted-devices
+      parameters:
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.listDeletedDevicesData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List deleted devices
+      tags:
+      - OMC Deleted Devices
+  /omc/deleted-devices/{id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: delete-deleted-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete a device permanently
+      tags:
+      - OMC Deleted Devices
+  /omc/deleted-devices/{id}/recover:
+    post:
+      consumes:
+      - application/json
+      operationId: recover-deleted-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Recover a deleted device
+      tags:
+      - OMC Deleted Devices
+  /omc/deleted-products:
+    get:
+      operationId: list-deleted-products
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listDeletedProductsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List deleted products
+      tags:
+      - OMC Deleted Products
+  /omc/deleted-products/{id}:
+    delete:
+      operationId: delete-deleted-product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete deleted product
+      tags:
+      - OMC Deleted Products
+  /omc/device-alarms:
+    get:
+      operationId: list-device-alarms
+      parameters:
+      - default: 0
+        description: Offset
+        in: query
+        name: offset
+        type: integer
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listDeviceAlarmsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List device alarms
+      tags:
+      - OMC Device Alarms(
+  /omc/device-alarms/{ts}:
+    get:
+      operationId: get-device-alarm
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceAlarm'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get device alarm
+      tags:
+      - OMC Device Alarms
+  /omc/device-events:
+    get:
+      operationId: list-device-events
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listDeviceEventsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List device events
+      tags:
+      - OMC DeviceEvents
+  /omc/device-events/{ts}:
+    get:
+      operationId: get-device-event
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceEvent'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get device event
+      tags:
+      - OMC DeviceEvents
+  /omc/device-logs:
+    get:
+      operationId: list-device-logs
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listTaskDeviceLogsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List log device logs
+      tags:
+      - OMC TaskDeviceLogs
+  /omc/device-logs/{ts}:
+    get:
+      operationId: get-device-log
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.TaskDeviceLog'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get log device log
+      tags:
+      - OMC TaskDeviceLogs
+  /omc/device-method-calls:
+    get:
+      operationId: list-device-method-calls
+      parameters:
+      - default: 0
+        description: Offset
+        in: query
+        name: offset
+        type: integer
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listDeviceMethodCallsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List device method calls
+      tags:
+      - OMC Device MethodCalls
+  /omc/device-method-calls/{ts}:
+    get:
+      operationId: get-device-method-call
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get device method call
+      tags:
+      - OMC Device MethodCalls
+  /omc/devices:
+    get:
+      consumes:
+      - application/json
+      operationId: list-devices
+      parameters:
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.listDevicesData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List devices
+      tags:
+      - OMC Devices
+    post:
+      consumes:
+      - application/json
+      operationId: create-device
+      parameters:
+      - description: Device
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createDeviceBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Device'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: 'Not Found: invalid product'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: delete-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete a device
+      tags:
+      - OMC Devices
+    get:
+      consumes:
+      - application/json
+      operationId: get-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Device'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get a device
+      tags:
+      - OMC Devices
+    put:
+      consumes:
+      - application/json
+      operationId: update-device-info
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Device
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.updateDeviceInfoBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Device'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update device info
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/add-device-object:
+    post:
+      consumes:
+      - application/json
+      operationId: add-device-object
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.addDeviceObejectBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Add object of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/delete-device-object:
+    post:
+      consumes:
+      - application/json
+      operationId: delete-device-object
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.deleteDeviceObejectBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete object of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/disable:
+    put:
+      consumes:
+      - application/json
+      operationId: set-device-disable
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.Map'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set a device disable
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/enable:
+    put:
+      consumes:
+      - application/json
+      operationId: set-device-enable
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.Map'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set a device enable
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/get-parameter-names:
+    post:
+      consumes:
+      - application/json
+      operationId: get-device-parameter-names
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.getDeviceParameterNamesBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get parameter names of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/get-parameter-values:
+    post:
+      consumes:
+      - application/json
+      operationId: get-device-parameter-values
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.getDeviceParameterValuesBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get parameter values of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/group:
+    put:
+      operationId: set-group-for-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Group ID
+        in: body
+        name: group_id
+        required: true
+        schema:
+          $ref: '#/definitions/omc.setGroupForDeviceBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Device'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set group for device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/methods:
+    get:
+      consumes:
+      - application/json
+      operationId: list-device-methods
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get the methods of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/parameters:
+    get:
+      consumes:
+      - application/json
+      operationId: list-device-parameters
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.ParameterValues'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get the parameters of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/perf-disable:
+    post:
+      consumes:
+      - application/json
+      operationId: set-device-perf-disable
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.Map'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set a device perf disable
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/perf-enable:
+    post:
+      consumes:
+      - application/json
+      operationId: set-device-perf-enable
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.Map'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set a device perf enable
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/reboot:
+    post:
+      consumes:
+      - application/json
+      operationId: reboot-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Reboot a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/set-parameter-values:
+    post:
+      consumes:
+      - application/json
+      operationId: set-device-parameter-values
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.setDeviceParameterValuesBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set parameter values of a device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/upgrade:
+    post:
+      consumes:
+      - application/json
+      operationId: ugrade-device
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.upgradeDeviceBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Upgrade device
+      tags:
+      - OMC Devices
+  /omc/devices/{id}/upload-file:
+    post:
+      consumes:
+      - application/json
+      operationId: upload-device-file
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.uploadDeviceFileBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceMethodCall'
+        "400":
+          description: BadRequest
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Upload file of device
+      tags:
+      - OMC Devices
+  /omc/firmwares:
+    get:
+      consumes:
+      - application/json
+      operationId: list-firmwares
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listFirmwaresData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List firmwares
+      tags:
+      - OMC Firmwares
+    post:
+      consumes:
+      - multipart/form-data
+      operationId: create-firmware
+      parameters:
+      - description: Version
+        in: formData
+        name: Version
+        required: true
+        type: string
+      - description: ProductType
+        in: formData
+        name: ProductType
+        required: true
+        type: string
+      - description: Product list
+        in: formData
+        name: Products
+        required: true
+        type: string
+      - description: Firmware file to upload
+        in: formData
+        name: File
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Firmware'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create firmware
+      tags:
+      - OMC Firmwares
+  /omc/firmwares/{id}:
+    delete:
+      consumes:
+      - application/json
+      operationId: delete-firmware
+      parameters:
+      - description: Firmware ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete firmware
+      tags:
+      - OMC Firmwares
+    get:
+      operationId: get-firmware
+      parameters:
+      - description: Firmware ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Firmware'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get firmware
+      tags:
+      - OMC Firmwares
+  /omc/firmwares/{id}/products:
+    put:
+      consumes:
+      - application/json
+      operationId: set-firmware-products
+      parameters:
+      - description: Device ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.setFirmwareProductsBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Device'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set firmware products
+      tags:
+      - OMC Firmwares
+  /omc/groups:
+    get:
+      operationId: list-groups
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/omc.Group'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List child groups
+      tags:
+      - OMC Groups
+    post:
+      operationId: create-group
+      parameters:
+      - description: Create Group Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createGroupBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Group'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create a group
+      tags:
+      - OMC Groups
+  /omc/groups/{id}:
+    delete:
+      operationId: delete-group
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete a group
+      tags:
+      - OMC Groups
+    get:
+      operationId: get-group
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Group'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get group details
+      tags:
+      - OMC Groups
+    put:
+      operationId: update-group-info
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Group Info Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.updateGroupInfoBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Group'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update group information
+      tags:
+      - OMC Groups
+  /omc/groups/{id}/children:
+    get:
+      operationId: get-group-children
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/omc.Group'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get child groups
+      tags:
+      - OMC Groups
+  /omc/groups/{id}/parent:
+    put:
+      operationId: set-group-parent
+      parameters:
+      - description: Group ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Set Group Parent Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.setGroupParentBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Group'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set group parent
+      tags:
+      - OMC Groups
+  /omc/kpi/measures:
+    get:
+      operationId: list-kpi-measures
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listKPIMeasuresData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List kpi measures
+      tags:
+      - OMC KPI
+    post:
+      operationId: create-kpi-measure
+      parameters:
+      - description: KPIMeas
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createKPIMeasureBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPIMeas'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create kpi measure
+      tags:
+      - OMC KPI
+  /omc/kpi/measures/{id}:
+    delete:
+      operationId: delete-kpi-measure
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete kpi measure
+      tags:
+      - OMC KPI
+    get:
+      operationId: get-kpi-measure
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPIMeas'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get kpi measure
+      tags:
+      - OMC KPI
+    put:
+      operationId: update-kpi-measure-info
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: KPIMeas
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.updateKPIMeasureInfoBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPIMeas'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update kpi measure info
+      tags:
+      - OMC KPI
+  /omc/kpi/measures/{id}/disable:
+    put:
+      operationId: set-kpi-measure-disable
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPIMeas'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set kpi measure disable
+      tags:
+      - OMC KPI
+  /omc/kpi/measures/{id}/enable:
+    put:
+      operationId: set-kpi-measure-enable
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPIMeas'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set kpi measure enable
+      tags:
+      - OMC KPI
+  /omc/kpi/templates:
+    get:
+      operationId: list-kpi-templates
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listKPITemplatesData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List kpi templates
+      tags:
+      - OMC KPI
+    post:
+      operationId: create-kpi-template
+      parameters:
+      - description: KPITemplate
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createKPITemplateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPITemplate'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create kpi template
+      tags:
+      - OMC KPI
+  /omc/kpi/templates/{id}:
+    delete:
+      operationId: delete-kpi-template
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete kpi template
+      tags:
+      - OMC KPI
+    get:
+      operationId: get-kpi-template
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPITemplate'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get kpi template
+      tags:
+      - OMC KPI
+    put:
+      operationId: update-kpi-template
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: KPITemplate
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.updateKPITemplateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.KPITemplate'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update kpi template
+      tags:
+      - OMC KPI
+  /omc/kpi/templates/{id}/records:
+    get:
+      operationId: list-kpi-template-records
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listKPITemplateRecordsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List kpi template records
+      tags:
+      - OMC KPI
+  /omc/products:
+    get:
+      operationId: list-products
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listProductsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List products
+      tags:
+      - OMC Products
+    post:
+      operationId: create-product
+      parameters:
+      - description: Product
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createProductBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Product'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create product
+      tags:
+      - OMC Products
+  /omc/products/{id}:
+    delete:
+      operationId: delete-product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete product
+      tags:
+      - OMC Products
+    get:
+      operationId: get-product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Product'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get product
+      tags:
+      - OMC Products
+    put:
+      operationId: update-product-info
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Product
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.updateProductInfoBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Product'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Update product info
+      tags:
+      - OMC Products
+  /omc/products/{id}/disable:
+    put:
+      operationId: set-product-disable
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Product'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set product disable
+      tags:
+      - OMC Products
+  /omc/products/{id}/enable:
+    put:
+      operationId: set-product-enable
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Product'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Set product enable
+      tags:
+      - OMC Products
+  /omc/products/{id}/firmwares:
+    get:
+      operationId: list-product-firmwares
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Firmwares
+          schema:
+            items:
+              $ref: '#/definitions/omc.Firmware'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List product firmwares
+      tags:
+      - OMC Products
+  /omc/tasks:
+    get:
+      operationId: list-tasks
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listTasksData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List tasks
+      tags:
+      - OMC Tasks
+    post:
+      operationId: create-task
+      parameters:
+      - description: Task
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/omc.createTaskBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Task'
+        "400":
+          description: 'Bad Request: invalid input parameter'
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Create task
+      tags:
+      - OMC Tasks
+  /omc/tasks/{id}:
+    delete:
+      operationId: delete-task
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete task
+      tags:
+      - OMC Tasks
+    get:
+      operationId: get-task
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.Task'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get task
+      tags:
+      - OMC Tasks
+  /omc/transfer-logs:
+    get:
+      consumes:
+      - application/json
+      operationId: list-device-transfer-logs
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Total:
+              description: Total number
+              type: int
+          schema:
+            $ref: '#/definitions/omc.listDeviceTransferLogsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List transfer logs
+      tags:
+      - OMC Device Transfer Logs
+  /omc/transfer-logs/{ts}:
+    delete:
+      consumes:
+      - application/json
+      operationId: delete-device-transfer-log
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete device transfer log
+      tags:
+      - OMC Device Transfer Logs
+    get:
+      operationId: get-device-transfer-log
+      parameters:
+      - description: Timestamp
+        in: path
+        name: ts
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/omc.DeviceTransferLog'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get device transfer log
+      tags:
+      - OMC Device Transfer Logs
+  /routes:
+    get:
+      operationId: list-routes
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.listRoutesBody'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List routes
+      tags:
+      - System
+  /s3/objects:
+    get:
+      consumes:
+      - application/json
+      operationId: list-objects
+      parameters:
+      - default: 1
+        description: Page
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - default: ""
+        description: Sort order
+        in: query
+        name: order_by
+        type: string
+      - default: ""
+        description: Query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of objects
+          schema:
+            $ref: '#/definitions/s3.listS3ObjectsData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: List objects
+      tags:
+      - Objects
+  /s3/objects/{bucket}/{key}:
+    delete:
+      consumes:
+      - application/json
+      operationId: delete-object
+      parameters:
+      - default: ""
+        description: S3 objet bucket
+        in: path
+        name: bucket
+        required: true
+        type: string
+      - default: ""
+        description: S3 object key
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Delete an object from S3
+      tags:
+      - Objects
+    get:
+      consumes:
+      - application/json
+      operationId: download-object
+      parameters:
+      - default: ""
+        description: S3 objet bucket
+        in: path
+        name: bucket
+        required: true
+        type: string
+      - default: ""
+        description: S3 object key
+        in: path
+        name: key
+        required: true
+        type: string
+      - description: Token for the object
+        in: query
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: Empty response
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Download an object from S3
+      tags:
+      - Objects
+    post:
+      consumes:
+      - multipart/form-data
+      operationId: put-object
+      parameters:
+      - default: ""
+        description: S3 objet bucket
+        in: path
+        name: bucket
+        required: true
+        type: string
+      - default: ""
+        description: S3 object key
+        in: path
+        name: key
+        required: true
+        type: string
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Object information
+          schema:
+            $ref: '#/definitions/s3.S3Object'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Put an object to S3
+      tags:
+      - Objects
+  /s3/objects/{bucket}/{key}/info:
+    get:
+      consumes:
+      - application/json
+      operationId: get-object-info
+      parameters:
+      - default: ""
+        description: S3 objet bucket
+        in: path
+        name: bucket
+        required: true
+        type: string
+      - default: ""
+        description: S3 object key
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Object information
+          schema:
+            $ref: '#/definitions/s3.S3Object'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get information for an object from S3
+      tags:
+      - Objects
+  /system/info:
+    get:
+      operationId: get-system-info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/system.systemInfoData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get information of system
+      tags:
+      - System
+  /system/time:
+    get:
+      operationId: get-system-time
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/system.systemTimeData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+        "500":
+          description: Internal Server error
+          schema:
+            $ref: '#/definitions/echo.HTTPError'
+      security:
+      - Bearer: []
+      summary: Get current time of system
+      tags:
+      - System
+schemes:
+- http
+securityDefinitions:
+  Bearer:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
